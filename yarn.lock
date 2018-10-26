@@ -4391,6 +4391,12 @@ ng-packagr@^4.2.0:
     uglify-js "^3.0.7"
     update-notifier "^2.3.0"
 
+ngx-input-search@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-input-search/-/ngx-input-search-1.0.0.tgz#b6b7aa347a1b74a6d52f73bb4d960cf1e7ca485d"
+  dependencies:
+    tslib "^1.9.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

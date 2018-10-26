@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CountryCardComponent } from './countries/country-card/country-card.component';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { InputSearchModule } from 'input-search';
+import { InputSearchModule } from 'ngx-input-search';
 
 @NgModule({
   declarations: [

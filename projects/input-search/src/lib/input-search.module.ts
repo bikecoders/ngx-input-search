@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { InputSearchComponent } from './input-search.component';
+import { InputSearchDirective } from './input-search.directive';
 
 @NgModule({
   imports: [
   ],
-  declarations: [InputSearchComponent],
-  exports: [InputSearchComponent]
+  declarations: [InputSearchDirective],
+  exports: [InputSearchDirective]
 })
 export class InputSearchModule { }

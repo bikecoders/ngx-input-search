@@ -145,6 +145,10 @@
           "options": {
             "tsConfig": "projects/input-search/tsconfig.lib.json",
             "project": "projects/input-search/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+            }
           }
         },
         "test": {

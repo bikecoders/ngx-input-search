@@ -1,0 +1,28 @@
+<div class="card my-3">
+  <img class="card-img-top" [attr.src]="country.flag" [attr.alt]="country.name">
+  <div class="card-body">
+    <h5 class="card-title"> {{ country.name }} </h5>
+    <div class="card-text">
+      <ul>
+        <li>
+          Native name: {{ country.nativeName }}
+        </li>
+        <li>
+          Capital: {{ country.capital }}
+        </li>
+        <li>
+          Population: {{ country.population | number }}
+        </li>
+        <li>
+          Borders: {{ country.borders.join(', ') }}
+        </li>
+        <li>
+          Alternative Spellings:
+          <ul>
+            <li *ngFor="let alt of country.altSpellings">{{ alt }}</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

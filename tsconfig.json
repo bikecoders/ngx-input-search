@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "input-search": [
+        "dist/input-search"
+      ],
+      "input-search/*": [
+        "dist/input-search/*"
+      ]
+    }
   }
 }

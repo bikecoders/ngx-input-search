@@ -133,6 +133,41 @@
           }
         }
       }
+    },
+    "input-search": {
+      "root": "projects/input-search",
+      "sourceRoot": "projects/input-search/src",
+      "projectType": "library",
+      "prefix": "ngx",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/input-search/tsconfig.lib.json",
+            "project": "projects/input-search/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/input-search/src/test.ts",
+            "tsConfig": "projects/input-search/tsconfig.spec.json",
+            "karmaConfig": "projects/input-search/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/input-search/tsconfig.lib.json",
+              "projects/input-search/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "input-search-demo"

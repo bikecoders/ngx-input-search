@@ -22,7 +22,7 @@ export class InputSearchDirective implements OnDestroy, OnInit {
     this._debounceTime = dbTime ? dbTime : 400;
   }
   get debounceTime() { return this._debounceTime; }
-  private _debounceTime;
+  private _debounceTime = 400;
 
   /**
    * The native element instance of the input

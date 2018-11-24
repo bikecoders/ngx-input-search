@@ -2,3 +2,5 @@ sudo: required
 language: node_js
 node_js:
   - node
+script:
+  - npm run input-search:ci

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Observable, never } from 'rxjs';
+import { Observable, NEVER } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CountriesService } from './countries/countries.service';
@@ -29,7 +29,7 @@ export class AppComponent {
       this.countriesService.getCountriesByName(query).pipe(
         catchError(err => {
           this.empty = err.status === 404;
-          return never();
+          return NEVER;
         })
       );
   }

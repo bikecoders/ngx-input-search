@@ -19,7 +19,8 @@
     "input-search:publish:copy-licence": "copy LICENSE dist/input-search",
     "input-search:publish:copy-readme": "copy README.md dist/input-search",
     "input-search:test": "ng test input-search",
-    "input-search:test:coverage": "ng test input-search -- --watch=false --code-coverage --browsers=ChromeHeadless"
+    "input-search:test:coverage": "ng test input-search -- --watch=false --code-coverage --browsers=ChromeHeadless",
+    "input-search:test:coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +53,7 @@
     "angular-cli-ghpages": "^0.5.3",
     "codelyzer": "~4.5.0",
     "copy": "^0.3.2",
+    "coveralls": "^3.0.2",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",

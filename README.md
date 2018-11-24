@@ -1,6 +1,11 @@
 
 
-# ngx-input-search [![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search)
+# ngx-input-search
+
+[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search)
+[![Build Status](https://travis-ci.com/bikecoders/ngx-input-search.svg?branch=master)](https://travis-ci.com/bikecoders/ngx-input-search)
+[![Coverage Status](https://coveralls.io/repos/github/bikecoders/ngx-input-search/badge.svg)](https://coveralls.io/github/bikecoders/ngx-input-search)
+
 
 ## TL;DR:
 

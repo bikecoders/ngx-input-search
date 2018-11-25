@@ -1,8 +1,23 @@
 sudo: required
 language: node_js
 node_js:
-  - node
+- node
 script:
-  - npm run input-search:ci
+- npm run input-search:lint
+- npm run input-search:test:coverage
+- npm run input-search:build-prod
 after_success:
-  - npm run input-search:test:coveralls
+- npm run input-search:test:coveralls
+before_deploy:
+- npm run input-search:publish:copy-files
+- cd dist/input-search
+deploy:
+  provider: npm
+  email: bikecoders@gmail.com
+  skip_cleanup: true
+  api_key:
+    secure: BYXprXr5uetdaWU+omgsjknugcehB1pmBtv+xmN3Pf3LhvDpMRrQinpGtIjb1fRP3Jvg0ykpcuuRwYLSOZ7w3ZNsCMFSgqwixnMCpSKNL6IYwf3v//OkWyiZIrWh2VS1yknsh/fRQTT+GVnrV5ehZDlJxsqOu5Mrq14IaSUZRAnfk0B3M7420TtRNM6GgqyGD3AvKF5MZPMcy2eITiIvuV9JM5nET5HQKWMGj9g7GcHkePLTkfzQcse4fc7ZycGLH+SNZr2Te5Dl5/+R/g0bvFqdlSs5MKf6V4B9c6IkHfs7wcZlLc/hT1nY5U4ajOi7OVRL4vBfcRHfRdWT+C53nXsDZz5G2+ckRQk0NFPTg+/lM/ZpBNqGjOgePqZD+JjnGmQLSxEycV+VYP8xTU7txZpWDHfSjFLcm5lp1KR8esGpeFLBIu583YFhMm+9XmitrYkxH+X3JMg7JO+dsGOyIn3cLaNAkLmlNpaT5ITISKV4rVyyyzdXU5RtDaIejTTH/aUCPaNQT+qquOY8hhqcac7Y3h65cEPnm5PhOQdb0lqSxEo1SatcYS63TT9aQwJ3Ix31kVJfCcl2sCqiEJrPJW7nwGU0v7Ry3H9PHa16XLlq9ClnKMIsLUKppO7LbY60G287sp1yvzrqSaJYYFgzCvs4w+3NVC9+hzmb73vsXtY=
+  on:
+    branch: master
+    tags: true
+    repo: bikecoders/ngx-input-search

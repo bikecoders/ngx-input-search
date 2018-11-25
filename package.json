@@ -13,11 +13,11 @@
 
     "input-search:build": "ng build input-search",
     "input-search:build-prod": "ng build input-search --prod",
-    "input-search:ci": "npm run input-search:lint && npm run input-search:test:coverage && npm run input-search:build-prod",
     "input-search:lint": "ng lint --project input-search",
-    "input-search:publish": "npm run input-search:build-prod && npm run input-search:publish:copy-readme && npm run input-search:publish:copy-licence && cd dist/input-search && npm publish",
+    "input-search:publish": "npm run input-search:build-prod && npm run input-search:publish:copy-files && cd dist/input-search && npm publish",
     "input-search:publish:copy-licence": "copy LICENSE dist/input-search",
     "input-search:publish:copy-readme": "copy README.md dist/input-search",
+    "input-search:publish:copy-files": "npm run input-search:publish:copy-licence && input-search:publish:copy-readme",
     "input-search:test": "ng test input-search",
     "input-search:test:coverage": "ng test input-search -- --watch=false --code-coverage --browsers=ChromeHeadless",
     "input-search:test:coveralls": "cat ./coverage/lcov.info | coveralls"

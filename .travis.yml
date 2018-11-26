@@ -3,9 +3,10 @@ language: node_js
 node_js:
 - node
 cache: yarn
-script:
+before_script:
 - npm run input-search:lint
 - npm run input-search:test:coverage
+script:
 - npm run input-search:build-prod
 after_success:
 # Push the code coverage results to coveralls

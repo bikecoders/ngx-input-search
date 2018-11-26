@@ -1,6 +1,6 @@
 {
   "name": "ngx-input-search",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "description": "Angular directive to put in your search inputs. With its only output you will be able to get what the user writes with all good practices related to search input",
   "keywords": [

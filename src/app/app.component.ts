@@ -14,6 +14,8 @@ export class AppComponent {
 
   empty = false;
 
+  countryFilterTooShort = false;
+
   constructor(
     private countriesService: CountriesService
   ) { }
@@ -22,6 +24,7 @@ export class AppComponent {
 
   doTheSearch($event: Event) {
     this.empty = false;
+    this.countryFilterTooShort = false;
 
     const query = ($event.target as HTMLInputElement).value;
 

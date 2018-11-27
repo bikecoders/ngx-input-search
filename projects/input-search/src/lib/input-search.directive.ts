@@ -1,16 +1,19 @@
 import { Directive, Output, EventEmitter, ElementRef, OnDestroy, Input, OnInit } from '@angular/core';
 
 import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, map, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Directive({
   selector: '[ngxInputSearch]'
 })
 export class InputSearchDirective implements OnDestroy, OnInit {
+  private readonly debounceTimeDefault = 400;
+  private readonly minStringLengthDefault = 0;
+
   /**
-     * The output to indicate when the user finish to type on the
-     * input search
-     */
+   * The output to indicate when the user finish to type on the
+   * input search
+   */
   @Output() ngxInputSearch: EventEmitter<Event>;
 
   /**
@@ -19,10 +22,27 @@ export class InputSearchDirective implements OnDestroy, OnInit {
    */
   @Input()
   set debounceTime(dbTime: number) {
-    this._debounceTime = dbTime ? dbTime : 400;
+    this._debounceTime = dbTime ? dbTime : this.debounceTimeDefault;
   }
   get debounceTime() { return this._debounceTime; }
-  private _debounceTime = 400;
+  private _debounceTime;
+
+  /**
+   * Indicates the minimum length that must have the string to be emitted.
+   * By default is 0
+   */
+  @Input()
+  set stringLength(stLength: number) {
+    this._stringLength = stLength && stLength >= 0 ? stLength : this.minStringLengthDefault;
+  }
+  get stringLength() { return this._stringLength; }
+  private _stringLength;
+
+  /**
+   * Indicates when the string written length is shorter than the minimum
+   * defined by the property `stringLength`
+   */
+  @Output() stringTooShort: EventEmitter<string>;
 
   /**
    * The native element instance of the input
@@ -36,7 +56,12 @@ export class InputSearchDirective implements OnDestroy, OnInit {
   private inputEventSubs: Subscription;
 
   constructor(private el: ElementRef) {
+    // Set defaults
+    this.debounceTime = this.debounceTimeDefault;
+    this.stringLength = this.minStringLengthDefault;
+
     this.ngxInputSearch = new EventEmitter<Event>();
+    this.stringTooShort = new EventEmitter<string>();
 
     this.inputEl = this.el.nativeElement;
   }
@@ -53,6 +78,17 @@ export class InputSearchDirective implements OnDestroy, OnInit {
       })),
       // Avoid emitting of the input value is the same
       distinctUntilChanged((prev, next) => prev.value === next.value),
+      // Validate the minimum length that must have the string
+      filter(tmpObj => {
+        // When the length is zero continue with the normal flow
+        if (tmpObj.value.length !== 0 && tmpObj.value.length < this.stringLength) {
+          // emit that the string length is too short
+          this.stringTooShort.emit(tmpObj.value);
+          return false;
+        } else {
+          return true;
+        }
+      }),
       // Return only the input event
       map(tmpObj => tmpObj.event)
     )

@@ -10,8 +10,13 @@ import { InputSearchDirective } from './input-search.directive';
   selector: 'ngx-dummy-component',
   template: `
     <label for="search-box"> Search Input </label>
-    <input id="search-box" type="text"
-      (ngxInputSearch)="doTheSearch($event)" [debounceTime]="debounceTime" />
+    <input
+      id="search-box"
+      type="text"
+      (ngxInputSearch)="doTheSearch($event)"
+      [debounceTime]="debounceTime"
+      [stringLength]="minStringLength"
+    />
 
     <br>
 
@@ -22,6 +27,8 @@ class DummyComponent {
   stringEmitted: string;
 
   debounceTime: number;
+
+  minStringLength: number;
 
   doTheSearch($event: Event) {
     this.stringEmitted = ($event.target as HTMLInputElement).value;
@@ -76,6 +83,7 @@ describe('InputSearchDirective', () => {
     expect(directive).toBeTruthy();
     expect(directive.ngxInputSearch).toBeTruthy();
     expect(directive.debounceTime).toEqual(400);
+    expect(directive.stringLength).toEqual(0);
   });
 
   it('should set a custom debounce time', fakeAsync(() => {
@@ -92,6 +100,40 @@ describe('InputSearchDirective', () => {
     expect(component.stringEmitted).toEqual('hi');
   }));
 
+  describe('Minimum string length set', () => {
+    it('should set stringLength as 0 when negative value passed', () => {
+      component.minStringLength = -1;
+      fixture.detectChanges();
+
+      expect(directive.stringLength).toEqual(0);
+    });
+
+    it('should set a custom minimum string length', fakeAsync(() => {
+      component.minStringLength = 5;
+      fixture.detectChanges();
+
+      expect(directive.stringLength).toEqual(5);
+    }));
+
+    it('should emit the stringTooShort event when the string is lower that the min string length', fakeAsync(() => {
+      component.minStringLength = 5;
+      fixture.detectChanges();
+      const stringTooShortEmitSpy: jasmine.Spy = spyOn(directive.stringTooShort, 'emit');
+
+      writeOnInput('hi');
+      expect(component.stringEmitted).toBeUndefined();
+      expect(stringTooShortEmitSpy).toHaveBeenCalledWith('hi');
+
+      writeOnInput('hallo');
+      expect(component.stringEmitted).toEqual('hallo');
+      expect(stringTooShortEmitSpy).toHaveBeenCalledTimes(1);
+
+      writeOnInput('');
+      expect(component.stringEmitted).toEqual('');
+      expect(stringTooShortEmitSpy).toHaveBeenCalledTimes(1);
+    }));
+  });
+
   describe('On write on search box', () => {
     let doTheSearchSpy: jasmine.Spy;
 
@@ -102,6 +144,9 @@ describe('InputSearchDirective', () => {
     it('should dispatch the correct string', fakeAsync(() => {
       writeOnInput('hi');
       expect(component.stringEmitted).toEqual('hi');
+
+      writeOnInput('');
+      expect(component.stringEmitted).toEqual('');
     }));
 
     it('should NOT dispatch the same string', fakeAsync(() => {

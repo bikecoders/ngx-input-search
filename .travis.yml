@@ -4,13 +4,9 @@ node_js:
 - node
 cache: yarn
 before_script:
-- npm run input-search:lint
-- npm run input-search:test:coverage
+- npm --silent run input-search:test:sonar -- -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
 script:
 - npm run input-search:build-prod
-after_success:
-# Push the code coverage results to coveralls
-- npm run input-search:test:coveralls
 before_deploy:
 - npm run input-search:publish:copy-files
 - cd dist/input-search

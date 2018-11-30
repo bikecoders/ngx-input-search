@@ -2,10 +2,11 @@
 
 # ngx-input-search
 
-[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search)
-[![Build Status](https://travis-ci.com/bikecoders/ngx-input-search.svg?branch=master)](https://travis-ci.com/bikecoders/ngx-input-search)
-[![Coverage Status](https://coveralls.io/repos/github/bikecoders/ngx-input-search/badge.svg)](https://coveralls.io/github/bikecoders/ngx-input-search)
+[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search) [![Build Status](https://travis-ci.com/bikecoders/ngx-input-search.svg?branch=master)](https://travis-ci.com/bikecoders/ngx-input-search)
 
+[![coverage](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=coverage)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search)  [![security rating](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=security_rating)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search)  [![reliability rating](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search) [![scale rating](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search)
+
+[![Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=bikecoders_ngx-input-search)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search)  [![Sonar Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search)
 
 ## TL;DR:
 

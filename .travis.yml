@@ -4,25 +4,21 @@ node_js:
 - node
 cache: yarn
 before_script:
-- npm --silent run input-search:test:sonar -- -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
+- npm --silent run input-search:test:sonar -- -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io
+  -Dsonar.login=$SONARCLOUD_TOKEN
 script:
 - npm run input-search:build-prod
 before_deploy:
 - npm run input-search:publish:copy-files
 - cd dist/input-search
 deploy:
-  - provider: npm
-    email: bikecoders@gmail.com
-    skip_cleanup: true
-    api_key:
-      secure: BYXprXr5uetdaWU+omgsjknugcehB1pmBtv+xmN3Pf3LhvDpMRrQinpGtIjb1fRP3Jvg0ykpcuuRwYLSOZ7w3ZNsCMFSgqwixnMCpSKNL6IYwf3v//OkWyiZIrWh2VS1yknsh/fRQTT+GVnrV5ehZDlJxsqOu5Mrq14IaSUZRAnfk0B3M7420TtRNM6GgqyGD3AvKF5MZPMcy2eITiIvuV9JM5nET5HQKWMGj9g7GcHkePLTkfzQcse4fc7ZycGLH+SNZr2Te5Dl5/+R/g0bvFqdlSs5MKf6V4B9c6IkHfs7wcZlLc/hT1nY5U4ajOi7OVRL4vBfcRHfRdWT+C53nXsDZz5G2+ckRQk0NFPTg+/lM/ZpBNqGjOgePqZD+JjnGmQLSxEycV+VYP8xTU7txZpWDHfSjFLcm5lp1KR8esGpeFLBIu583YFhMm+9XmitrYkxH+X3JMg7JO+dsGOyIn3cLaNAkLmlNpaT5ITISKV4rVyyyzdXU5RtDaIejTTH/aUCPaNQT+qquOY8hhqcac7Y3h65cEPnm5PhOQdb0lqSxEo1SatcYS63TT9aQwJ3Ix31kVJfCcl2sCqiEJrPJW7nwGU0v7Ry3H9PHa16XLlq9ClnKMIsLUKppO7LbY60G287sp1yvzrqSaJYYFgzCvs4w+3NVC9+hzmb73vsXtY=
-    on:
-      branch: master
-      tags: true
-      repo: bikecoders/ngx-input-search
+  provider: npm
+  email: bikecoders@gmail.com
+  api_key:
+    secure: KBBrIpZQqCDfOROiurzABbx2MCLZWJazW3Q6jqRwA/TyPXS/KTHZwM6weRA/Bs9DTOYibVtBHRMHgIt5VEGdVAsHEi4S6qxCGASeQmqDU2FJUWXLs6FuKP3dScX0UB/HUzn+O9OrLozZITAFkHvCEUF/zEC3x7l5ATsdaSMl0Q3JGOp6MxTPKNfBu3H0/02Eeg3/A6NBDfzWVGmJ6WXXMmw8Q3BDiPnxLgKTWLGYhzVHIcg5z1Yw3eok78XFSy14POzviIiOzy0uCHoXz12Q0vo2M8Bt3RTZICCjMxDjarNSm004rBtFEdeQPZUmPyChYbREsWtl23RGp2tdqQ22aLGT77ZnZ9IdXruogZ+0X3GzWJhQ+rwNhJ6PnktdFAJcJF2527cdyHMvfDgF/QkVAboR7xhtNKqmmCGGWYvSpE1P/5dBbY1XZffbEm5/J1sif3MOmRs958J2RS8B/jNTGbICsyHmWAMuqJ3YBJChfrljwovqxpcleIanzz1+fOXEkpcB6pfkW2y8GOB8xBc5bb0V7bQIx741BiUBeCDUldSiRUz9linjcx338cnWb7UFNVKqUqgIvnIAqrVAvCLk//rX+aPEfcXscm/9kzFAumoO12xwAgQiAx0g2pxU/WOlSwA8x/xm5ebdBcztoNFeXgQ6YI2yoZlWNXv4gJPgAnM=
+  on:
+    tags: true
+    repo: bikecoders/ngx-input-search
 after_deploy:
 - cd ../..
-# Download the just released Version of the library
-- yarn add ngx-input-search@latest --force
-# Generate demo
-- npm run deploy-gh-pages
+- yarn add ngx-input-search@latest --force && npm run deploy-gh-pages

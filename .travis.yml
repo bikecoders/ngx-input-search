@@ -2,7 +2,6 @@ sudo: required
 language: node_js
 node_js:
 - node
-cache: yarn
 before_script:
 - npm --silent run input-search:test:sonar -- -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io
   -Dsonar.login=$SONARCLOUD_TOKEN
@@ -22,4 +21,4 @@ deploy:
     repo: bikecoders/ngx-input-search
 after_deploy:
 - cd ../..
-- yarn add ngx-input-search@latest --force && npm run deploy-gh-pages
+- yarn upgrade ngx-input-search --force && yarn list ngx-input-search && npm run deploy-gh-pages

@@ -20,7 +20,11 @@
     "input-search:publish:copy-files": "npm run input-search:publish:copy-licence && npm run input-search:publish:copy-readme",
     "input-search:test": "ng test input-search",
     "input-search:test:coverage": "ng test input-search -- --watch=false --code-coverage --browsers=ChromeHeadless",
-    "input-search:test:sonar": "npm run input-search:lint:report && cross-env SONAR_QUBE=1 npm run input-search:test:coverage && sonar-scanner"
+    "input-search:test:sonar": "npm run input-search:lint:report && cross-env SONAR_QUBE=1 npm run input-search:test:coverage && sonar-scanner",
+    "input-search:create-version": "cd projects/input-search && mkdir -p .git && npm version",
+    "input-search:create-version:patch": "npm run input-search:create-version -- patch",
+    "input-search:create-version:minor": "npm run input-search:create-version -- minor",
+    "input-search:create-version:major": "npm run input-search:create-version -- major"
   },
   "private": true,
   "dependencies": {

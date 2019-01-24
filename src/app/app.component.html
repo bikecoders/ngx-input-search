@@ -17,30 +17,22 @@
     debounceTime="600"
     [stringLength]="3"
     (emptyInput)="empty = true"
-    (stringTooShort)="countryFilterTooShort = true"
+    (stringTooShort)="countryFilterTooShort = true; empty = false"
     type="text"
     class="search form-control mt-5 w-50 mx-auto"
     placeholder="Country Name"
     aria-label="country name"
   >
   <div
-    *ngIf="countryFilterTooShort"
-    class="alert alert-warning alert-dismissible fade show country-filter-short-alert"
+    *ngIf="countryFilterTooShort && !empty"
+    class="alert alert-info country-filter-short-alert"
     role="alert"
   >
     Filter too short, try to enter more characters
-    <button
-      type="button"
-      class="close"
-      data-dismiss="alert"
-      aria-label="Close"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
   </div>
 
   <div class="row mt-5">
-    <ng-container *ngIf="!empty">
+    <ng-container *ngIf="!empty && !countryFilterTooShort">
       <app-country-card
         *ngFor="let item of (countriesResult | async)"
         [country]="item"

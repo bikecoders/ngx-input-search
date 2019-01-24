@@ -45,6 +45,11 @@ export class InputSearchDirective implements OnDestroy, OnInit {
   @Output() stringTooShort: EventEmitter<string>;
 
   /**
+   * Indicates when the input is empty
+   */
+  @Output() emptyInput: EventEmitter<void>;
+
+  /**
    * The native element instance of the input
    */
   private inputEl: HTMLInputElement;
@@ -62,6 +67,7 @@ export class InputSearchDirective implements OnDestroy, OnInit {
 
     this.ngxInputSearch = new EventEmitter<Event>();
     this.stringTooShort = new EventEmitter<string>();
+    this.emptyInput = new EventEmitter<void>();
 
     this.inputEl = this.el.nativeElement;
   }
@@ -80,8 +86,12 @@ export class InputSearchDirective implements OnDestroy, OnInit {
       distinctUntilChanged((prev, next) => prev.value === next.value),
       // Validate the minimum length that must have the string
       filter(tmpObj => {
-        // When the length is zero continue with the normal flow
-        if (tmpObj.value.length !== 0 && tmpObj.value.length < this.stringLength) {
+        if (tmpObj.value.length === 0) {
+          // emit that the input is empty
+          this.emptyInput.emit();
+          return false;
+        }
+        if (tmpObj.value.length < this.stringLength) {
           // emit that the string length is too short
           this.stringTooShort.emit(tmpObj.value);
           return false;

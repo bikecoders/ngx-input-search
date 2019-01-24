@@ -15,7 +15,8 @@
   <input
     (ngxInputSearch)="doTheSearch($event);"
     debounceTime="600"
-    stringLength="3"
+    [stringLength]="3"
+    (emptyInput)="empty = true"
     (stringTooShort)="countryFilterTooShort = true"
     type="text"
     class="search form-control mt-5 w-50 mx-auto"
@@ -39,12 +40,14 @@
   </div>
 
   <div class="row mt-5">
-    <app-country-card
-      *ngFor="let item of (countriesResult | async)"
-      [country]="item"
-      class="col-12 col-sm-6 col-lg-4"
-    >
-    </app-country-card>
+    <ng-container *ngIf="!empty">
+      <app-country-card
+        *ngFor="let item of (countriesResult | async)"
+        [country]="item"
+        class="col-12 col-sm-6 col-lg-4"
+      >
+      </app-country-card>
+    </ng-container>
     <div *ngIf="empty">
       <h2>Nothing Found</h2>
     </div>

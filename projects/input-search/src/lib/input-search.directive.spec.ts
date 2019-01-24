@@ -127,12 +127,17 @@ describe('InputSearchDirective', () => {
       writeOnInput('hallo');
       expect(component.stringEmitted).toEqual('hallo');
       expect(stringTooShortEmitSpy).toHaveBeenCalledTimes(1);
-
-      writeOnInput('');
-      expect(component.stringEmitted).toEqual('');
-      expect(stringTooShortEmitSpy).toHaveBeenCalledTimes(1);
     }));
   });
+
+  it('should emit emptyInput event', fakeAsync(() => {
+    fixture.detectChanges();
+    const emptyInputEmitSpy: jasmine.Spy = spyOn(directive.emptyInput, 'emit');
+
+    writeOnInput('');
+    expect(emptyInputEmitSpy).toHaveBeenCalled();
+  }));
+
 
   describe('On write on search box', () => {
     let doTheSearchSpy: jasmine.Spy;
@@ -142,11 +147,8 @@ describe('InputSearchDirective', () => {
     });
 
     it('should dispatch the correct string', fakeAsync(() => {
-      writeOnInput('hi');
-      expect(component.stringEmitted).toEqual('hi');
-
-      writeOnInput('');
-      expect(component.stringEmitted).toEqual('');
+      writeOnInput('hallo');
+      expect(component.stringEmitted).toEqual('hallo');
     }));
 
     it('should NOT dispatch the same string', fakeAsync(() => {

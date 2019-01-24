@@ -106,6 +106,7 @@ class DummyComponent {
 | `@Input() debounceTime: number = 400` | Indicates how much time in ms it will wait for the users stops typing. By default is 400ms. |
 | `@Input() stringLength: number = 0` | Indicates the minimum length that must have the string to be emitted. By default is 0. |
 | `@Output() stringTooShort: EventEmitted<string>` | Event emitted when the string written length is shorter than the minimum defined by the input property `stringLength`. The event contains the current criteria. |
+| `@Output() emptyInput: EventEmitted<void>` | Event emitted when the input is empty. |
 
 
 ## Why?

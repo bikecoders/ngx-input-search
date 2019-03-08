@@ -8,7 +8,7 @@
 
 ## TL;DR:
 
-Angular directive to put in your search inputs.
+Angular directive to put in your search inputs to improve the User Experience (UX).
 With its only output you will be able to get what the user writes with good practices related to search inputs such as:
 
 - Wait until the user stops writing to perform the desired action

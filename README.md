@@ -1,6 +1,10 @@
 # ngx-input-search
 
-[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search) [![Build Status](https://travis-ci.org/bikecoders/ngx-input-search.svg?branch=master)](https://travis-ci.org/bikecoders/ngx-input-search)
+[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search) ![LicenGitHubce](https://img.shields.io/github/license/bikecoders/npm-package-stats.svg)
+
+[![Build Status](https://travis-ci.org/bikecoders/ngx-input-search.svg?branch=master)](https://travis-ci.org/bikecoders/ngx-input-search)
+
+[![dependencies Status](https://david-dm.org/bikecoders/ngx-input-search/status.svg)](https://david-dm.org/bikecoders/ngx-input-search) [![devDependencies Status](https://david-dm.org/bikecoders/ngx-input-search/dev-status.svg)](https://david-dm.org/bikecoders/ngx-input-search?type=dev)
 
 [![coverage](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=coverage)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search) [![reliability rating](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search) [![security rating](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=security_rating)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search) [![scale rating](https://sonarcloud.io/api/project_badges/measure?project=bikecoders_ngx-input-search&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=bikecoders_ngx-input-search)
 
@@ -13,7 +17,7 @@ With its only output you will be able to get what the user writes with good prac
 
 - Wait until the user stops writing to perform the desired action
 - Avoid performing the action over the same stream
-- Trim the whitespaces on the criteria
+- Trim the white-spaces on the criteria
 - Stream when the criteria's length is greater than the desired
 
 
@@ -53,6 +57,9 @@ class DummyComponent {
 - online demo: https://bikecoders.github.io/ngx-input-search/
 - [demo-app](https://github.com/bikecoders/ngx-input-search/tree/master/src): Source code available
 
+<p align="center">
+  <img src="docs/images/ezgif-2-f565ee76abe0.gif" alt="demo gif">
+</p>
 
 ## Getting started
 
@@ -100,13 +107,13 @@ class DummyComponent {
 
 ## Properties
 
-| Name  | Description |
-| :---- | :---------- |
-| `@Output() ngxInputSearch: EventEmitted<Event>` | Event emitted when the user has entered the search criteria in the input element. |
-| `@Input() debounceTime: number = 400` | Indicates how much time in ms it will wait for the users stops typing. By default is 400ms. |
-| `@Input() stringLength: number = 0` | Indicates the minimum length that must have the string to be emitted. By default is 0. |
+| Name                                             | Description                                                                                                                                                     |
+| :----------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@Output() ngxInputSearch: EventEmitted<Event>`  | Event emitted when the user has entered the search criteria in the input element.                                                                               |
+| `@Input() debounceTime: number = 400`            | Indicates how much time in ms it will wait for the users stops typing. By default is 400ms.                                                                     |
+| `@Input() stringLength: number = 0`              | Indicates the minimum length that must have the string to be emitted. By default is 0.                                                                          |
 | `@Output() stringTooShort: EventEmitted<string>` | Event emitted when the string written length is shorter than the minimum defined by the input property `stringLength`. The event contains the current criteria. |
-| `@Output() emptyInput: EventEmitted<void>` | Event emitted when the input is empty. |
+| `@Output() emptyInput: EventEmitted<void>`       | Event emitted when the input is empty.                                                                                                                          |
 
 
 ## Why?

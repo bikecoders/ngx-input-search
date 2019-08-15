@@ -5,6 +5,6 @@ import { InputSearchDirective } from './input-search.directive';
 @NgModule({
   imports: [CommonModule],
   declarations: [InputSearchDirective],
-  exports: [InputSearchDirective]
+  exports: [InputSearchDirective],
 })
 export class NgxInputSearchModule {}

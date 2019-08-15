@@ -4,7 +4,7 @@ import { NgxInputSearchModule } from './ngx-input-search.module';
 describe('NgxInputSearchModule', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgxInputSearchModule]
+      imports: [NgxInputSearchModule],
     }).compileComponents();
   }));
 

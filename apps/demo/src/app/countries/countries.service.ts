@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Country } from './shared/countries.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CountriesService {
   private readonly apiUrl = 'https://restcountries.eu/rest/v2';

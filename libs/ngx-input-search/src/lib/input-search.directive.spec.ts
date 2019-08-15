@@ -4,7 +4,7 @@ import {
   TestBed,
   ComponentFixture,
   fakeAsync,
-  tick
+  tick,
 } from '@angular/core/testing';
 
 import { Subscription } from 'rxjs';
@@ -25,7 +25,7 @@ import { InputSearchDirective } from './input-search.directive';
     <br />
 
     <span> The search box triggers -> {{ stringEmitted }} </span>
-  `
+  `,
 })
 class DummyComponent {
   stringEmitted: string;
@@ -61,7 +61,7 @@ describe('InputSearchDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DummyComponent, InputSearchDirective]
+      declarations: [DummyComponent, InputSearchDirective],
     }).compileComponents();
   });
 
@@ -121,7 +121,7 @@ describe('InputSearchDirective', () => {
       fixture.detectChanges();
       const stringTooShortEmitSpy: jasmine.Spy = spyOn(
         directive.stringTooShort,
-        'emit'
+        'emit',
       );
 
       writeOnInput('hi');

@@ -5,7 +5,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 
 import { fromEvent, Subscription } from 'rxjs';
@@ -13,11 +13,11 @@ import {
   debounceTime,
   distinctUntilChanged,
   filter,
-  map
+  map,
 } from 'rxjs/operators';
 
 @Directive({
-  selector: '[ngxInputSearch]'
+  selector: '[ngxInputSearch]',
 })
 export class InputSearchDirective implements OnDestroy, OnInit {
   private readonly debounceTimeDefault = 400;
@@ -99,7 +99,7 @@ export class InputSearchDirective implements OnDestroy, OnInit {
         // Transform the event to track the input value, to use it in the comparison
         map(event => ({
           value: (event.target as HTMLInputElement).value.trim(),
-          event
+          event,
         })),
         // Avoid emitting of the input value is the same
         distinctUntilChanged((prev, next) => prev.value === next.value),
@@ -119,7 +119,7 @@ export class InputSearchDirective implements OnDestroy, OnInit {
           }
         }),
         // Return only the input event
-        map(tmpObj => tmpObj.event)
+        map(tmpObj => tmpObj.event),
       )
       .subscribe($event => this.ngxInputSearch.next($event));
   }

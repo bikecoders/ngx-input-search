@@ -58,7 +58,7 @@ class DummyComponent {
 - [demo-app](https://github.com/bikecoders/ngx-input-search/tree/master/src): Source code available
 
 <p align="center">
-  <img src="docs/images/ezgif-2-f565ee76abe0.gif" alt="demo gif">
+  <img src="docs/images/demo.gif" alt="demo gif">
 </p>
 
 ## Getting started

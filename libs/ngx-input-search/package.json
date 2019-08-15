@@ -1,0 +1,37 @@
+{
+  "name": "ngx-input-search",
+  "version": "2.2.1",
+  "license": "MIT",
+  "description": "Angular directive to put in your search inputs. With its only output you will be able to get what the user writes with all good practices related to search input",
+  "keywords": [
+    "angular library",
+    "angular",
+    "debounce",
+    "distinct until change",
+    "library",
+    "ngx",
+    "input search directive",
+    "input search",
+    "search",
+    "input",
+    "wait until stop writing"
+  ],
+  "repository": {
+    "url": "https://github.com/bikecoders/ngx-input-search.git",
+    "type": "git"
+  },
+  "author": "BikeCoders <bikecoders@gmail.com> (https://github.com/bikecoders)",
+  "collaborators": [
+    "Diego Juliao <dianjuar@gmail.com> (https://github.com/dianjuar)",
+    "Yossely Mendoza <yossely7@gmail.com> (https://github.com/yossely)"
+  ],
+  "bugs": {
+    "url": "https://github.com/bikecoders/ngx-input-search/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.1.1",
+    "@angular/core": "^8.1.1"
+  },
+  "homepage": "https://github.com/bikecoders/ngx-input-search#readme",
+  "readmeFilename": "README.md"
+}

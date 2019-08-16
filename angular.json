@@ -130,6 +130,9 @@
           "options": {
             "tsConfig": "libs/ngx-input-search/tsconfig.lib.json",
             "project": "libs/ngx-input-search/ng-package.json"
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "lint": {

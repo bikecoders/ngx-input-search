@@ -2,160 +2,157 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
-jobs:
-  build:
+
+var_1: &default_docker_image circleci/node:lts
+var_2: &cache_key v1.6-dependencies-{{ checksum "yarn.lock" }}
+var_3: &workdir /home/circleci/repo
+
+var_4: &only-on-pullrequest
+  filters:
+    branches:
+      ignore: master
+    tags:
+      ignore: /.*/
+
+var_5: &only-deploy-tags
+  filters:
+    tags:
+      only: /^v.*/
+    branches:
+      ignore: /.*/
+
+version: 2.1
+
+executors:
+  my-executor:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: *default_docker_image
+    working_directory: *workdir
+  sonar-executor:
+    docker:
+      - image: cwiggert/circleci-node-java:0.0.3
+    working_directory: *workdir
+  cypress-executor:
+    docker:
+      - image: cypress/base:10
+    working_directory: *workdir
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+jobs:
+  checkout_code:
+    executor: my-executor
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - *cache_key
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+            - v1.6-dependencies-
       - run: yarn install
-
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: *cache_key
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
-      # run tests!
-      - run: yarn test
-# # Javascript Node CircleCI 2.0 configuration file
-# #
-# # Check https://circleci.com/docs/2.0/language-javascript/ for more details
-# #
+  linter-pr:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Create extra env Variables
+      - run: ls -l .
+      - run: pwd
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      - run: npm run affected:lint:ci:pr
 
-# var_1: &default_docker_image circleci/node:lts
-# var_2: &cache_key v1-dependencies-{{ checksum "yarn.lock" }}
-# var_3: &workdir /home/circleci/repo
+  build-pr:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Create extra env Variables
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      - run: yarn affected:build:ci:prod
 
-# var_4: &only-on-pullrequest
-#   filters:
-#     branches:
-#       ignore: master
-#     tags:
-#       ignore: /.*/
+  test-pr:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Create extra env Variables
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      - run: yarn affected:test:ci:pr
 
-# var_5: &only-deploy-tags
-#   filters:
-#     tags:
-#       only: /^v.*/
-#     branches:
-#       ignore: /.*/
+  e2e-pr:
+    executor: cypress-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Install dependencies
+      - run: apt install -y jq
+      # Create extra env Variables
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      - run: npx cypress install
+      - run: yarn affected:e2e:ci:pr
 
-# version: 2.1
+  # build-deploy:
+  #   executor: my-executor
+  #   steps:
+  #     - attach_workspace:
+  #         at: *workdir
+  #     # Create extra env Variables
+  #     - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && npm run affected:build:ci:prod || npm run ci:build-all'
+  #     - persist_to_workspace:
+  #         root: .
+  #         paths: dist
+  # deploy-apps:
+  #   executor: my-executor
+  #   steps:
+  #     - attach_workspace:
+  #         at: *workdir
+  #     - add_ssh_keys
+  #     - run: npm run ci:set-server-known_host
+  #     - run: npm run ci:init-deploy
 
-# executors:
-#   my-executor:
-#     docker:
-#       - image: *default_docker_image
-#     working_directory: *workdir
-#   sonar-executor:
-#     docker:
-#       - image: cwiggert/circleci-node-java:0.0.3
-#     working_directory: *workdir
+# Workflows definition
+workflows:
+  version: 2
 
-# jobs:
-#   checkout_code:
-#     executor: my-executor
-#     steps:
-#       - checkout
-#       # Download and cache dependencies
-#       - restore_cache:
-#           keys:
-#             - *cache_key
-#             # fallback to using the latest cache if no exact match is found
-#             - v1-dependencies-
-#       - run: npm install
-#       - save_cache:
-#           paths:
-#             - node_modules
-#           key: *cache_key
-#       - persist_to_workspace:
-#           root: .
-#           paths: .
-
-#   linter-pr:
-#     executor: my-executor
-#     steps:
-#       - attach_workspace:
-#           at: *workdir
-#       # Create extra env Variables
-#       - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
-#       - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
-#       - run: npm run affected:lint:ci:pr
-
-#   build-pr:
-#     executor: my-executor
-#     steps:
-#       - attach_workspace:
-#           at: *workdir
-#       # Create extra env Variables
-#       - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
-#       - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
-#       - run: npm run affected:build:ci:pr
-
-#   build-deploy:
-#     executor: my-executor
-#     steps:
-#       - attach_workspace:
-#           at: *workdir
-#       # Create extra env Variables
-#       - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && npm run affected:build:ci:prod || npm run ci:build-all'
-#       - persist_to_workspace:
-#           root: .
-#           paths: dist
-
-#   deploy-apps:
-#     executor: my-executor
-#     steps:
-#       - attach_workspace:
-#           at: *workdir
-#       - add_ssh_keys
-#       - run: npm run ci:set-server-known_host
-#       - run: npm run ci:init-deploy
-
-# # Workflows definition
-# workflows:
-#   version: 2
-
-#   analize-pr:
-#     jobs:
-#       # Don't do this on tags
-#       - checkout_code:
-#           <<: *only-on-pullrequest
-#       - build-pr:
-#           requires:
-#             - checkout_code
-#       - linter-pr:
-#           requires:
-#             - checkout_code
-
-#   deploy:
-#     jobs:
-#       - checkout_code:
-#           # <<: *only-on-pullrequest # for testing only
-#           <<: *only-deploy-tags
-#       - build-deploy:
-#           <<: *only-deploy-tags
-#           requires:
-#             - checkout_code
-#       - deploy-apps:
-#           <<: *only-deploy-tags
-#           requires:
-#             - build-deploy
+  analyze-pr:
+    jobs:
+      # Don't do this on tags
+      - checkout_code:
+          <<: *only-on-pullrequest
+      - build-pr:
+          requires:
+            - checkout_code
+      - linter-pr:
+          requires:
+            - checkout_code
+      - test-pr:
+          requires:
+            - checkout_code
+      - e2e-pr:
+          requires:
+            - checkout_code
+  # deploy:
+  #   jobs:
+  #     - checkout_code:
+  #         # <<: *only-on-pullrequest # for testing only
+  #         <<: *only-deploy-tags
+  #     - build-deploy:
+  #         <<: *only-deploy-tags
+  #         requires:
+  #           - checkout_code
+  #     - deploy-apps:
+  #         <<: *only-deploy-tags
+  #         requires:
+  #           - build-deploy

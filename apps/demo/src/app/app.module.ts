@@ -10,6 +10,6 @@ import { NgxInputSearchModule } from '@ngx-input-search/ngx-input-search';
   declarations: [AppComponent, CountryCardComponent],
   imports: [BrowserModule, LoadingBarHttpClientModule, NgxInputSearchModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,16 +5,25 @@
 
 var_1: &default_docker_image circleci/node:lts
 var_2: &cache_key v1.6-dependencies-{{ checksum "yarn.lock" }}
-var_3: &workdir /home/circleci/repo
+var_3: &cache_key_test_pr v1-test-pr-reports
+var_4: &cache_key_test_master v1-test-master-reports
+var_5: &workdir /home/circleci/repo
 
-var_4: &only-on-pullrequest
+var_6: &only-on-pullrequest
   filters:
     branches:
       ignore: master
     tags:
       ignore: /.*/
 
-var_5: &only-deploy-tags
+var_7: &only-on-master
+  filters:
+    tags:
+      ignore: /.*/
+    branches:
+      only: master
+
+var_8: &only-deploy-tags
   filters:
     tags:
       only: /^v.*/
@@ -58,18 +67,7 @@ jobs:
           paths:
             - .
 
-  linter-pr:
-    executor: my-executor
-    steps:
-      - attach_workspace:
-          at: *workdir
-      # Create extra env Variables
-      - run: ls -l .
-      - run: pwd
-      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
-      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
-      - run: yarn affected:lint:ci:pr
-
+  # ------------ PULL REQUEST ------------
   build-pr:
     executor: my-executor
     steps:
@@ -78,17 +76,7 @@ jobs:
       # Create extra env Variables
       - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
       - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
-      - run: yarn affected:build:ci:prod
-
-  test-pr:
-    executor: my-executor
-    steps:
-      - attach_workspace:
-          at: *workdir
-      # Create extra env Variables
-      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
-      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
-      - run: yarn affected:test:ci:pr
+      - run: yarn affected:build:ci:pr
 
   e2e-pr:
     executor: cypress-executor
@@ -103,24 +91,120 @@ jobs:
       - run: npx cypress install
       - run: yarn affected:e2e:ci:pr
 
-  # build-deploy:
-  #   executor: my-executor
-  #   steps:
-  #     - attach_workspace:
-  #         at: *workdir
-  #     # Create extra env Variables
-  #     - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && yarn affected:build:ci:prod || yarn ci:build-all'
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths: dist
-  # deploy-apps:
-  #   executor: my-executor
-  #   steps:
-  #     - attach_workspace:
-  #         at: *workdir
-  #     - add_ssh_keys
-  #     - run: yarn ci:set-server-known_host
-  #     - run: yarn ci:init-deploy
+  linter-pr:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Create extra env Variables
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      - run: yarn affected:lint:ci:pr
+
+  test-pr:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      - restore_cache:
+          keys:
+            - *cache_key_test_pr
+      # Create extra env Variables
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      # Verify if the coverage folder exits, if does, only run the affected, if not, run all test
+      # We need all test with its reports to be able to execute the Sonar Analysis
+      - run: '[[ -d "coverage" ]] && yarn affected:test:ci:pr || yarn affected:test:ci:pr:all'
+      - save_cache:
+          paths:
+            - coverage
+          key: *cache_key_test_pr
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./coverage
+
+  sonar-pr:
+    executor: sonar-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Create extra env Variables
+      - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+      # Fix CircleCI repo references
+      - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+      - run: npx sonar-scanner -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN -Dsonar.pullrequest.base=$BC_PR_BASE_BRANCH -Dsonar.pullrequest.branch=$BC_PR_BRANCH -Dsonar.pullrequest.key=$BC_PR_ID
+  # ------------ PULL REQUEST OFF ------------
+  # ------------ MASTER ------------
+  build-master:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      - run: yarn affected:build:ci:master
+
+  e2e-master:
+    executor: cypress-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      - run: npx cypress install
+      - run: yarn affected:e2e:ci:master
+
+  linter-master:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      - run: yarn affected:lint:ci:master
+
+  test-master:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      - restore_cache:
+          keys:
+            - *cache_key_test_master
+      # Verify if the coverage folder exits, if does, only run the affected, if not, run all test
+      # We need all test with its reports to be able to execute the Sonar Analysis
+      - run: '[[ -d "coverage" ]] && yarn affected:test:ci:master || yarn affected:test:ci:master:all'
+      - save_cache:
+          paths:
+            - coverage
+          key: *cache_key_test_master
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./coverage
+
+  sonar-master:
+    executor: sonar-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      - run: npx sonar-scanner -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
+
+# ------------ MASTER OFF ------------
+
+# build-deploy:
+#   executor: my-executor
+#   steps:
+#     - attach_workspace:
+#         at: *workdir
+#     # Create extra env Variables
+#     - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && yarn affected:build:ci:prod || yarn ci:build-all'
+#     - persist_to_workspace:
+#         root: .
+#         paths: dist
+# deploy-apps:
+#   executor: my-executor
+#   steps:
+#     - attach_workspace:
+#         at: *workdir
+#     - add_ssh_keys
+#     - run: yarn ci:set-server-known_host
+#     - run: yarn ci:init-deploy
 
 # Workflows definition
 workflows:
@@ -134,15 +218,39 @@ workflows:
       - build-pr:
           requires:
             - checkout_code
+      - e2e-pr:
+          requires:
+            - checkout_code
       - linter-pr:
           requires:
             - checkout_code
       - test-pr:
           requires:
             - checkout_code
-      - e2e-pr:
+      - sonar-pr:
+          requires:
+            - test-pr
+
+  analyze-master:
+    jobs:
+      # Don't do this on tags
+      - checkout_code:
+          <<: *only-on-master
+      - build-master:
           requires:
             - checkout_code
+      - e2e-master:
+          requires:
+            - checkout_code
+      - linter-master:
+          requires:
+            - checkout_code
+      - test-master:
+          requires:
+            - checkout_code
+      - sonar-master:
+          requires:
+            - test-master
   # deploy:
   #   jobs:
   #     - checkout_code:

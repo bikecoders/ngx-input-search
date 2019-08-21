@@ -68,7 +68,7 @@ jobs:
       - run: pwd
       - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
       - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
-      - run: npm run affected:lint:ci:pr
+      - run: yarn affected:lint:ci:pr
 
   build-pr:
     executor: my-executor
@@ -109,7 +109,7 @@ jobs:
   #     - attach_workspace:
   #         at: *workdir
   #     # Create extra env Variables
-  #     - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && npm run affected:build:ci:prod || npm run ci:build-all'
+  #     - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && yarn affected:build:ci:prod || yarn ci:build-all'
   #     - persist_to_workspace:
   #         root: .
   #         paths: dist
@@ -119,8 +119,8 @@ jobs:
   #     - attach_workspace:
   #         at: *workdir
   #     - add_ssh_keys
-  #     - run: npm run ci:set-server-known_host
-  #     - run: npm run ci:init-deploy
+  #     - run: yarn ci:set-server-known_host
+  #     - run: yarn ci:init-deploy
 
 # Workflows definition
 workflows:

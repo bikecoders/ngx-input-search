@@ -1,7 +1,7 @@
 {
   "hooks": {
     "commit-msg": "commitlint -e",
-    "pre-commit": "npm run affected:lint:parallel",
-    "pre-push": "npm run affected:build:parallel"
+    "pre-commit": "yarn affected:lint:parallel",
+    "pre-push": "yarn affected:build:parallel"
   }
 }

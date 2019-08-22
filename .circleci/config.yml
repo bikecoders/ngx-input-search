@@ -206,6 +206,9 @@ jobs:
 #     - run: yarn ci:set-server-known_host
 #     - run: yarn ci:init-deploy
 
+orbs:
+  cypress: cypress-io/cypress@1
+
 # Workflows definition
 workflows:
   version: 2
@@ -218,9 +221,18 @@ workflows:
       - build-pr:
           requires:
             - checkout_code
-      - e2e-pr:
+      - cypress/run:
+          pre-steps:
+            - run: cat ./.circleci/scripts/extra-variables.sh >> $BASH_ENV
+            - run: ./.circleci/scripts/fix-circleci-repo-ref.sh
+          yarn: true
+          cache-key: *cache_key
+          command: yarn affected:e2e:ci:pr
           requires:
             - checkout_code
+      # - e2e-pr:
+      #     requires:
+      #       - checkout_code
       - linter-pr:
           requires:
             - checkout_code

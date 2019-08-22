@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search) ![LicenGitHubce](https://img.shields.io/github/license/bikecoders/npm-package-stats.svg)
 
-[![Build Status](https://travis-ci.org/bikecoders/ngx-input-search.svg?branch=master)](https://travis-ci.org/bikecoders/ngx-input-search)
+[![CircleCI](https://circleci.com/gh/bikecoders/ngx-input-search/tree/master.svg?style=svg)](https://circleci.com/gh/bikecoders/ngx-input-search/tree/master)
 
 [![dependencies Status](https://david-dm.org/bikecoders/ngx-input-search/status.svg)](https://david-dm.org/bikecoders/ngx-input-search) [![devDependencies Status](https://david-dm.org/bikecoders/ngx-input-search/dev-status.svg)](https://david-dm.org/bikecoders/ngx-input-search?type=dev)
 

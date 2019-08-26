@@ -1,6 +1,6 @@
 # ngx-input-search
 
-[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search) ![LicenGitHubce](https://img.shields.io/github/license/bikecoders/npm-package-stats.svg)
+[![npm version](https://badge.fury.io/js/ngx-input-search.svg)](https://badge.fury.io/js/ngx-input-search) ![NPM](https://img.shields.io/npm/l/ngx-input-search?color=blue)
 
 [![CircleCI](https://circleci.com/gh/bikecoders/ngx-input-search/tree/master.svg?style=svg)](https://circleci.com/gh/bikecoders/ngx-input-search/tree/master)
 

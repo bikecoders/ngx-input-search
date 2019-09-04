@@ -8,11 +8,7 @@ module.exports = async function() {
   const deploymentCommand =
     'ng deploy demo --repo=https://$GITHUB_TOKEN@github.com/bikecoders/ngx-input-search.git --dry-run';
 
-  const { stdout, stderr } = await exec(deploymentCommand);
-
-  if (stderr) {
-    throw stderr;
-  }
+  const { stdout } = await exec(deploymentCommand);
 
   log(stdout);
 };

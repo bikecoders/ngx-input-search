@@ -184,27 +184,17 @@ jobs:
       - attach_workspace:
           at: *workdir
       - run: npx sonar-scanner -Dsonar.organization=bikecoders -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
-
-# ------------ MASTER OFF ------------
-
-# build-deploy:
-#   executor: my-executor
-#   steps:
-#     - attach_workspace:
-#         at: *workdir
-#     # Create extra env Variables
-#     - run: '[[ -z "${FORCE_DEPLOY_ALL}" ]] && yarn affected:build:ci:prod || yarn ci:build-all'
-#     - persist_to_workspace:
-#         root: .
-#         paths: dist
-# deploy-apps:
-#   executor: my-executor
-#   steps:
-#     - attach_workspace:
-#         at: *workdir
-#     - add_ssh_keys
-#     - run: yarn ci:set-server-known_host
-#     - run: yarn ci:init-deploy
+  # ------------ MASTER OFF ------------
+  # ------------ DEPLOY ------------
+  init-deploy:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: *workdir
+      # Set NPM token to be able to publish
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run: yarn ci:init-deploy
+  # ------------ DEPLOY OFF ------------
 
 # Workflows definition
 workflows:
@@ -251,16 +241,13 @@ workflows:
       - sonar-master:
           requires:
             - test-master
-  # deploy:
-  #   jobs:
-  #     - checkout_code:
-  #         # <<: *only-on-pullrequest # for testing only
-  #         <<: *only-deploy-tags
-  #     - build-deploy:
-  #         <<: *only-deploy-tags
-  #         requires:
-  #           - checkout_code
-  #     - deploy-apps:
-  #         <<: *only-deploy-tags
-  #         requires:
-  #           - build-deploy
+
+  deploy:
+    jobs:
+      - checkout_code:
+          # <<: *only-on-pullrequest # for testing only
+          <<: *only-deploy-tags
+      - init-deploy:
+          <<: *only-deploy-tags
+          requires:
+            - checkout_code

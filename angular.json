@@ -89,6 +89,14 @@
             "tsConfig": "apps/demo/tsconfig.spec.json",
             "setupFile": "apps/demo/src/test-setup.ts"
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://bikecoders.github.io/ngx-input-search/",
+            "name": "bikecoders",
+            "email": "bikecoders@gmail.com"
+          }
         }
       }
     },
@@ -151,6 +159,12 @@
             "jestConfig": "libs/ngx-input-search/jest.config.js",
             "tsConfig": "libs/ngx-input-search/tsconfig.spec.json",
             "setupFile": "libs/ngx-input-search/src/test-setup.ts"
+          }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public"
           }
         }
       },

@@ -193,6 +193,7 @@ jobs:
           at: *workdir
       # Set NPM token to be able to publish
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run: npm whoami
       - run: yarn ci:init-deploy
   # ------------ DEPLOY OFF ------------
 

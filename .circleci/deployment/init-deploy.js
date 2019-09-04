@@ -32,10 +32,7 @@ async function checkProjectsToDeploy() {
     .map(buildCommandGivenTarget)
     .join(' && ');
 
-  const { stdout, stderr } = await exec(commandToExecute).catch(err => ({
-    stdout: null,
-    stderr: err,
-  }));
+  const { stdout } = await exec(commandToExecute);
 
   apps = stdout
     ? stdout

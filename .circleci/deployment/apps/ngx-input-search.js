@@ -11,11 +11,7 @@ module.exports = async function() {
   async function deploy() {
     const deploymentCommand = 'ng deploy ngx-input-search';
     // Execute resolver
-    const { stdout, stderr } = await exec(deploymentCommand);
-
-    if (stderr) {
-      throw stderr;
-    }
+    const { stdout } = await exec(deploymentCommand);
 
     log(stdout);
   }

@@ -130,9 +130,7 @@ describe('Ngx Input Search Deployer', () => {
       jest.spyOn(fs, 'writeFile').mockImplementationOnce(callbackFsSpy(null));
 
       execMock.exec.mockImplementation(async () => {
-        return {
-          stderr: customError,
-        };
+        throw customError;
       });
 
       ngxInputSearchDeployer()

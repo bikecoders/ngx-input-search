@@ -192,7 +192,7 @@ jobs:
       - attach_workspace:
           at: *workdir
       # Set NPM token to be able to publish
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > /home/circleci/repo/.npmrc
       - run: npm whoami
       - run: yarn ci:init-deploy
   # ------------ DEPLOY OFF ------------

@@ -14,8 +14,6 @@ module.exports = {
     });
   },
   reject: function(customStdErr) {
-    execResolver({
-      stderr: customStdErr,
-    });
+    execRejector(customStdErr);
   },
 };

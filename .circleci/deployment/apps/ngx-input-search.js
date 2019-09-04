@@ -9,7 +9,7 @@ module.exports = async function() {
   await deploy();
 
   async function deploy() {
-    const deploymentCommand = 'ng deploy ngx-input-file';
+    const deploymentCommand = 'ng deploy ngx-input-search';
     // Execute resolver
     const { stdout, stderr } = await exec(deploymentCommand);
 

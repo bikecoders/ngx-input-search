@@ -72,7 +72,7 @@ describe('Ngx Input Search Deployer', () => {
       ngxInputSearchDeployer()
         .then(() => {
           const deployCommandExecuted = execMock.exec.mock.calls[0][0];
-          expect(deployCommandExecuted).toEqual('ng deploy ngx-input-file');
+          expect(deployCommandExecuted).toEqual('ng deploy ngx-input-search');
           done();
         })
         .catch(() => fail('should be completed'));

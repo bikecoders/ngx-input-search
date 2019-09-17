@@ -94,7 +94,7 @@
     "dotenv": "6.2.0",
     "eslint": "6.3.0",
     "husky": "3.0.5",
-    "jest": "24.1.0",
+    "jest": "24.9.0",
     "jest-preset-angular": "7.0.0",
     "ng-packagr": "5.5.0",
     "prettier": "1.18.2",

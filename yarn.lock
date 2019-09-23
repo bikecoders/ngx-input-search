@@ -7089,10 +7089,10 @@ ng-packagr@5.5.0:
     terser "^4.1.2"
     update-notifier "^3.0.0"
 
-ngx-deploy-npm@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ngx-deploy-npm/-/ngx-deploy-npm-1.0.3.tgz#05da591bad0f2e358433aa340bcf8596ba332b3d"
-  integrity sha512-hsh3v0cZ1fzugUvJkXavy/A9CHS97v/4l1TdP8d0rH15Ykj06cN7evmpbrl42D5vj3zQaymvoVkXokmuxsTHaQ==
+ngx-deploy-npm@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/ngx-deploy-npm/-/ngx-deploy-npm-1.0.5.tgz#25557224d9af3fe0dfb7b2b0acc7b0579c8c9e53"
+  integrity sha512-94QfnpJ/h3XCd0KWLLcpV90jTu7yKpqXKUmnGRP9Vhx3l7bN2zRxcsDBcgh5wdhu9Gl8tcI0HPj+2JS074D+qQ==
 
 nice-try@^1.0.4:
   version "1.0.5"

@@ -99,7 +99,7 @@
     "ng-packagr": "5.7.1",
     "prettier": "1.19.1",
     "sonar-scanner": "3.1.0",
-    "ts-jest": "24.2.0",
+    "ts-jest": "24.3.0",
     "ts-node": "8.5.2",
     "tsickle": "0.37.1",
     "tslint": "5.20.1",

@@ -64,7 +64,7 @@
     "@angular/router": "8.2.14",
     "@ngx-loading-bar/http-client": "2.2.0",
     "@nrwl/angular": "8.12.2",
-    "angular-cli-ghpages": "0.6.0",
+    "angular-cli-ghpages": "0.6.2",
     "bootstrap": "4.4.1",
     "core-js": "3.6.4",
     "font-awesome": "4.7.0",

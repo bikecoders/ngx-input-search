@@ -2615,10 +2615,10 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-angular-cli-ghpages@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/angular-cli-ghpages/-/angular-cli-ghpages-0.6.0.tgz#08eb8f073867f8b3d3441955c4603628696e528d"
-  integrity sha512-IMzDXVWqaO0RWvqJ+hiPqBZ//Ahz3cOnJSCfrqoLbL1xKbFl1ybODHSVuCwLwTvo5P4XjM13LxLw0MBUH5ODKA==
+angular-cli-ghpages@0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/angular-cli-ghpages/-/angular-cli-ghpages-0.6.2.tgz#1caec218f77cc7faa58e69fe5d64e77db2a688bf"
+  integrity sha512-T4O8VMcj9M7MlFWvg1emeNzLnylKuDkEcBkdymDZNRwVGaYEHkte1UQwbph5QhIHPFOjyT9DHOj9fx1Cp3fCQA==
   dependencies:
     commander "^3.0.0-0"
     fs-extra "^8.1.0"

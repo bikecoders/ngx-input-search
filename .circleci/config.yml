@@ -4,7 +4,7 @@
 #
 
 var_1: &default_docker_image circleci/node:lts
-var_2: &cache_key v1.6-dependencies-{{ checksum "yarn.lock" }}
+var_2: &cache_key v1.7-dependencies-{{ checksum "yarn.lock" }}
 var_3: &cache_key_test_pr v1-test-pr-reports
 var_4: &cache_key_test_master v1-test-master-reports
 var_5: &workdir /home/circleci/repo

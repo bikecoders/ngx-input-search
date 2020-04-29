@@ -2038,20 +2038,12 @@
     tree-kill "1.2.2"
     webpack-sources "1.4.3"
 
-"@ngx-loading-bar/core@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/core/-/core-2.2.0.tgz#ad313bbbd69e4c52cc2d6f0a8b5911272371d16a"
-  integrity sha512-0jcnEzuhqE/c+4iAumJ/0D4GBWm4RRVas0+qXpX4Wm225SJoE5KupUOlMrvLnJNK2bn8NW31dEj80kJ+UzhE5A==
+"@ngx-loading-bar/http-client@4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/http-client/-/http-client-4.2.0.tgz#62f498c6860a9d460df4f1ef6173608168bdbfe6"
+  integrity sha512-r8M9XAdKZC98LQhxyDA+pq5V9SS471VLI82UlsnBz17i3K2cHWVBjkwomEQq9i2xBNS14DOY/tAlxUlX+WAhSg==
   dependencies:
-    tslib "^1.7.1"
-
-"@ngx-loading-bar/http-client@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/http-client/-/http-client-2.2.0.tgz#4b5443feed5c53bc5b5f06119f771edbe89799f4"
-  integrity sha512-+eilxs10KncQWg7DQJLK2AoWnmTPidhVHNxfTOPHJVnmcyAFmTtk+lQbf5Ke3aC4d/KXZklkRyBizqDfvRvc9w==
-  dependencies:
-    "@ngx-loading-bar/core" "2.2.0"
-    tslib "^1.7.1"
+    tslib "^1.9.0"
 
 "@nrwl/angular@8.12.2":
   version "8.12.2"
@@ -11225,7 +11217,7 @@ tsickle@0.37.1:
   resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.37.1.tgz#2f8a87c1b15766e866457bd06fb6c0e0d84eed09"
   integrity sha512-0GwgOJEnsmRsrONXCvcbAWY0CvdqF3UugPVoupUpA8Ul0qCPTuqqq0ou/hLqtKZOyyulzCP6MYRjb9/J1g9bJg==
 
-tslib@1.10.0, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==

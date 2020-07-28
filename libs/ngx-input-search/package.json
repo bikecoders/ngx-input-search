@@ -29,8 +29,8 @@
     "url": "https://github.com/bikecoders/ngx-input-search/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^8.1.1",
-    "@angular/core": "^8.1.1"
+    "@angular/common": "^8.1.1 || ^10.0.0",
+    "@angular/core": "^8.1.1 || ^10.0.0"
   },
   "homepage": "https://github.com/bikecoders/ngx-input-search#readme",
   "readmeFilename": "README.md"

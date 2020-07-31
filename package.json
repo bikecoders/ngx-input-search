@@ -70,7 +70,7 @@
     "font-awesome": "4.7.0",
     "jquery": "3.4.1",
     "ngx-deploy-npm": "1.1.1",
-    "rxjs": "6.5.4",
+    "rxjs": "6.6.2",
     "tslib": "1.10.0",
     "zone.js": "0.10.2"
   },

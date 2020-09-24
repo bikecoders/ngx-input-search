@@ -87,7 +87,7 @@
     "@nrwl/workspace": "8.12.2",
     "@types/jest": "24.9.1",
     "@types/node": "8.10.59",
-    "codelyzer": "5.2.1",
+    "codelyzer": "5.2.2",
     "colors": "1.4.0",
     "cross-env": "6.0.3",
     "cypress": "4.9.0",

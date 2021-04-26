@@ -95,7 +95,7 @@
     "eslint": "6.8.0",
     "husky": "4.2.3",
     "jest": "25.1.0",
-    "jest-preset-angular": "7.1.1",
+    "jest-preset-angular": "8.4.0",
     "ng-packagr": "5.7.1",
     "prettier": "1.19.1",
     "sonar-scanner": "3.1.0",
